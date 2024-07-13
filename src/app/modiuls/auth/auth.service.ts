@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
 const signupUserFromDB = async (payloads: TUsers) => {
   const user = await User.find();
 
-  const isUserEmailExisit = user.map((en) => en.phone === payloads.phone);
+  const isUserEmailExisit = user.map((en) => en.email === payloads.email);
   if (isUserEmailExisit.includes(true)) {
     throw new AppError(httpStatus.CONFLICT, "This Email is Alrady exisit");
   }
@@ -52,7 +52,7 @@ const loginUserFromDb=async(payloads:Record<string,unknown>)=>{
 
   const JwtPayloads={
     email:user.email,
-    phone:user.phone
+    role:user.role
   }
 
   const accessToken=createToken(
@@ -66,9 +66,11 @@ const loginUserFromDb=async(payloads:Record<string,unknown>)=>{
     config.JWT_SECRET_REFRESSRS_TIME as string
   )
 
+  const accessTokenBearer=`Bearer ${accessToken}`
+
 
   return {
-    accessToken,refressencToken
+    accessTokenBearer,refressencToken,user
   }
   
 }

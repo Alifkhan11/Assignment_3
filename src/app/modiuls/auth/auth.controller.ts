@@ -5,6 +5,7 @@ import httpStatus from "http-status";
 import config from "../../config";
 
 const signuptUser = catchAcync(async (req, res) => {
+  
   const resualt = await UserService.signupUserFromDB(req.body);
 
   sendResponse(res, {
@@ -16,7 +17,7 @@ const signuptUser = catchAcync(async (req, res) => {
 });
 const loginUser = catchAcync(async (req, res) => {
   const resualt = await UserService.loginUserFromDb(req.body);
-  const {accessToken,refressencToken}=resualt
+  const {accessTokenBearer,refressencToken}=resualt
 
   res.cookie('RefereachToken',refressencToken,{
     secure: config.NODE_ENV === 'production',
@@ -27,10 +28,8 @@ const loginUser = catchAcync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "User Login successfully",
-    data: {
-      token:resualt.accessToken,
-      data:resualt
-    },
+    token:accessTokenBearer,
+    data: resualt.user,
   });
 });
 
