@@ -47,12 +47,12 @@ userSchema.pre("save", async function (next) {
     this.password,
     Number(config.BCRYPT_SALT_ROUND),
   );
-  next()
+  next();
 });
 
-userSchema.post('save',function(doc,next){
-doc.password=''
-next()
-})
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
+});
 
 export const User = model<TUsers>("User", userSchema);

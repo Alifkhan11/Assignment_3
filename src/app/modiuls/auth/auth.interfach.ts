@@ -1,9 +1,7 @@
 export const USER_ROLE = {
-  admin: 'admin',
-  user:'user',
+  admin: "admin",
+  user: "user",
 } as const;
-
-
 
 export type TUsers = {
   name: string;
@@ -15,5 +13,4 @@ export type TUsers = {
   isDeleted?: boolean;
 };
 
-
-export type TUserRole=keyof typeof USER_ROLE
+export type TUserRole = keyof typeof USER_ROLE;

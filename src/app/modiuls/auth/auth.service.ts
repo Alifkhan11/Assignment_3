@@ -4,7 +4,7 @@ import { TUsers } from "./auth.interfach";
 import { User } from "./auth.model";
 import { createToken } from "./auth.utils";
 import config from "../../config";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
 const signupUserFromDB = async (payloads: TUsers) => {
   const user = await User.find();
@@ -26,56 +26,56 @@ const signupUserFromDB = async (payloads: TUsers) => {
   return resualt;
 };
 
-const loginUserFromDb=async(payloads:Record<string,unknown>)=>{
+const loginUserFromDb = async (payloads: Record<string, unknown>) => {
+  const user = await User.findOne({ email: payloads.email });
 
-  const user=await User.findOne({email:payloads.email})
-
-  if(!user){
-    throw new AppError(httpStatus.BAD_REQUEST,'This Email is not exisit')
+  if (!user) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This Email is not exisit");
   }
 
-
-  const isDeleted=user.isDeleted
-  if(isDeleted){
-    throw new AppError(httpStatus.BAD_REQUEST,'This User is deleted')
+  const isDeleted = user.isDeleted;
+  if (isDeleted) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This User is deleted");
   }
 
+  const hashPassword = user.password;
+  const playinTextPassword = payloads?.password as string;
 
-  const hashPassword=user.password
-  const playinTextPassword=payloads?.password as string
+  const isPasswordMatch = await bcrypt.compare(
+    playinTextPassword,
+    hashPassword,
+  );
 
-  const isPasswordMatch=await bcrypt.compare(playinTextPassword,hashPassword)
-
-  if(!isPasswordMatch){
-    throw new AppError(httpStatus.BAD_REQUEST,'This Password is not valid')
+  if (!isPasswordMatch) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This Password is not valid");
   }
 
-  const JwtPayloads={
-    email:user.email,
-    role:user.role
-  }
+  const JwtPayloads = {
+    email: user.email,
+    role: user.role,
+  };
 
-  const accessToken=createToken(
+  const accessToken = createToken(
     JwtPayloads,
     config.JWT_SECRET_ACCESS_KE as string,
-    config.JWT_SECRET_ACCESS_TIME as string
-  )
-  const refressencToken=createToken(
+    config.JWT_SECRET_ACCESS_TIME as string,
+  );
+  const refressencToken = createToken(
     JwtPayloads,
     config.JWT_SECRET_REFRESSRS_KE as string,
-    config.JWT_SECRET_REFRESSRS_TIME as string
-  )
+    config.JWT_SECRET_REFRESSRS_TIME as string,
+  );
 
-  const accessTokenBearer=`Bearer ${accessToken}`
-
+  const accessTokenBearer = `Bearer ${accessToken}`;
 
   return {
-    accessTokenBearer,refressencToken,user
-  }
-  
-}
+    accessTokenBearer,
+    refressencToken,
+    user,
+  };
+};
 
 export const UserService = {
   signupUserFromDB,
-  loginUserFromDb
+  loginUserFromDb,
 };

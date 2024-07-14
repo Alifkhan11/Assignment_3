@@ -11,9 +11,6 @@ router.post(
   UserController.signuptUser,
 );
 
-router.post(
-  "/login",
-  UserController.loginUser,
-);
+router.post("/login", UserController.loginUser);
 
 export const UserRouter = router;
