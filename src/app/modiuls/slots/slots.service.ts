@@ -8,13 +8,12 @@ const createSlotsFromDB = async (payloads: TSlots) => {
   const serviceid = payloads.service;
   const service = await Service.findById(serviceid);
   if (!service) {
-    throw new AppError(httpStatus.BAD_REQUEST, "This service is Exixit");
+    throw new AppError(httpStatus.NOT_FOUND, "This service is not found");
   }
 
-  const isExisitService=await Slots.findOne({service})
-  console.log(isExisitService);
-  
-  if(isExisitService){
+  const isExisitService = await Slots.findOne({ service });
+
+  if (isExisitService) {
     throw new AppError(httpStatus.BAD_REQUEST, "This service is Exixit");
   }
 
@@ -44,7 +43,7 @@ const createSlotsFromDB = async (payloads: TSlots) => {
     );
 
     const slot = new Slots({
-      service: payloads.service, 
+      service: payloads.service,
       date: payloads.date,
       startTime: slotStartTime,
       endTime: slotEndTime,
@@ -56,15 +55,12 @@ const createSlotsFromDB = async (payloads: TSlots) => {
   return resualt;
 };
 
-
-
-const getAllSlots=async()=>{
-    const resrualt=await Slots.find()//.populate('Service')
-    return resrualt
-}
-
+const getAllSlots = async () => {
+  const resrualt = await Slots.find().populate("service");
+  return resrualt;
+};
 
 export const SlotsService = {
   createSlotsFromDB,
-  getAllSlots
+  getAllSlots,
 };

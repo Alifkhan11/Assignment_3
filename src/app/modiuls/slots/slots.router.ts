@@ -1,5 +1,4 @@
 import express from "express";
-import { FOUND } from "http-status";
 import { SlotsValidation } from "./slots.validation";
 import validationRequest from "../../middlewere/validationRequest";
 import { SlotsController } from "./slots.controller";
@@ -16,7 +15,7 @@ router.post(
 );
 router.get(
   "/slots/availability",
-  auth(USER_ROLE.admin,USER_ROLE.user),
+  auth(USER_ROLE.admin, USER_ROLE.user),
   SlotsController.getAllSlots,
 );
 

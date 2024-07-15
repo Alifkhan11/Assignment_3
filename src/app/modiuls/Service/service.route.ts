@@ -39,17 +39,4 @@ router.delete(
   ServiceController.deletedService,
 );
 
-// router.get(
-//   "/slots/availability",
-//   auth(USER_ROLE.admin,USER_ROLE.user),
-//   SlotsController.getAllSlots,
-// );
-
-// router.post(
-//   "/services/slots",
-//   auth(USER_ROLE.admin),
-//   validationRequest(SlotsValidation.createSlotsValidationSchema),
-//   ServiceController.createSlots,
-// );
-
 export const ServiceRouter = router;

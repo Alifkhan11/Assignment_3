@@ -13,7 +13,7 @@ const createSlots = catchAcync(async (req, res) => {
   });
 });
 const getAllSlots = catchAcync(async (req, res) => {
-  const resuslt = await SlotsService.getAllSlots()
+  const resuslt = await SlotsService.getAllSlots();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -24,5 +24,5 @@ const getAllSlots = catchAcync(async (req, res) => {
 
 export const SlotsController = {
   createSlots,
-  getAllSlots
+  getAllSlots,
 };

@@ -4,6 +4,7 @@ import { UserRouter } from "./app/modiuls/auth/auth.router";
 import globalErrorHendleing from "./app/middlewere/globalErrorHendleing";
 import { ServiceRouter } from "./app/modiuls/Service/service.route";
 import { SlotsRouter } from "./app/modiuls/slots/slots.router";
+import { BookingServiceRouter } from "./app/modiuls/bookService/boolService.router";
 
 const app: Application = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/api/auth", UserRouter);
 app.use("/api", ServiceRouter);
 app.use("/api", SlotsRouter);
+app.use("/api", BookingServiceRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

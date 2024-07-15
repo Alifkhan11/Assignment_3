@@ -56,26 +56,10 @@ const deletedService = catchAcync(async (req, res) => {
   });
 });
 
-
-
-
-
-// const createSlots = catchAcync(async (req, res) => {
-//   const resuslt = await ServicesService.createSlotsFromDB(req.body);
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "Slots created successfully",
-//     data: resuslt,
-//   });
-// });
-
-
 export const ServiceController = {
   createService,
   getSingleService,
   getAllService,
   updathService,
   deletedService,
-  // createSlots
 };
