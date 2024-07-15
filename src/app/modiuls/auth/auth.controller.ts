@@ -10,7 +10,7 @@ const signuptUser = catchAcync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User created successfully",
+    message: "User registered successfully",
     data: resualt,
   });
 });
@@ -26,7 +26,7 @@ const loginUser = catchAcync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User Login successfully",
+    message: "User logged in successfully",
     token: accessTokenBearer,
     data: resualt.user,
   });

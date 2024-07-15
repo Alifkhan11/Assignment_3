@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import AppError from "../../error/appError";
 import { TService } from "./service.interfach";
 import { Service } from "./service.model";
 
@@ -15,11 +17,19 @@ const getAllServiceFromDB = async () => {
   return resualt;
 };
 const updathServiceFromDB = async (id: string, payloads: Partial<TService>) => {
+  const service = await Service.findById(id);
+  if (!service) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This Service is not Exisit");
+  }
   const resualt = await Service.findByIdAndUpdate(id, payloads, { new: true });
   return resualt;
 };
 
 const deletedServiceFromDB = async (id: string) => {
+  const service = await Service.findById(id);
+  if (!service) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This Service is not Exisit");
+  }
   const resualt = await Service.findByIdAndUpdate(
     id,
     { isDeleted: true },

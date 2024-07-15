@@ -22,7 +22,7 @@ const getAllBookService = catchAcync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Get All Booked successful",
+    message: "All bookings retrieved successfully",
     data: resualt,
   });
 });
@@ -33,7 +33,7 @@ const getMyAllBookService = catchAcync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Get My All Booked successful",
+    message: "User bookings retrieved successfully",
     data: resualt,
   });
 });

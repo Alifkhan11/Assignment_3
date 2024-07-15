@@ -6,6 +6,7 @@ import { BookService } from "./bookService.model";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../../config";
 import { User } from "../auth/auth.model";
+import mongoose from "mongoose";
 
 const createBookServiceFromDB = async (
   payloads: TBookService,
@@ -18,9 +19,9 @@ const createBookServiceFromDB = async (
   ) as JwtPayload;
 
   const user = await User.findOne({ email: decoded?.email }, { _id: 1 });
-  // const customer=new mongoose.Types.ObjectId(user?._id?.toString())
+  const customer = new mongoose.Types.ObjectId(user?._id);
 
-  payloads.customer = user?._id;
+  payloads.customer = customer;
 
   const slot = await Slots.findById(payloads.slotId);
   if (!slot) {

@@ -5,10 +5,12 @@ import { TSlots } from "./slots.interfach";
 import { Slots } from "./slots.model";
 
 const createSlotsFromDB = async (payloads: TSlots) => {
-  const serviceid = payloads.service;
-  const service = await Service.findById(serviceid);
+  const service = await Service.findById(payloads.service);
   if (!service) {
-    throw new AppError(httpStatus.NOT_FOUND, "This service is not found");
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "This service is not found Or Deleted",
+    );
   }
 
   const isExisitService = await Slots.findOne({ service });
