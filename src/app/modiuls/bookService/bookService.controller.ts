@@ -5,9 +5,10 @@ import { BookingServiceService } from "./bookService.service";
 
 const createBookService = catchAcync(async (req, res) => {
   const token = req.headers.authorization as string;
+  const orizinalToken=token.slice(7)
   const resualt = await BookingServiceService.createBookServiceFromDB(
     req.body,
-    token,
+    orizinalToken,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -29,7 +30,8 @@ const getAllBookService = catchAcync(async (req, res) => {
 
 const getMyAllBookService = catchAcync(async (req, res) => {
   const token = req.headers.authorization as string;
-  const resualt = await BookingServiceService.getMyAllBookServiceFromDB(token);
+  const orizinalToken=token.slice(7)
+  const resualt = await BookingServiceService.getMyAllBookServiceFromDB(orizinalToken);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
