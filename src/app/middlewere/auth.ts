@@ -9,19 +9,19 @@ import { User } from "../modiuls/auth/auth.model";
 const auth = (...requireRole: TUserRole[]) => {
   return catchAcync(async (req, res, next) => {
     const token = req.headers.authorization;
-    const orizinalToken = token?.slice(7);
+    
+    
 
-    if (!orizinalToken) {
+    if (!token) {
       throw new AppError(httpStatus.BAD_REQUEST, "You are not Authrazies");
     }
 
     const decoded = Jwt.verify(
-      orizinalToken,
+      token,
       config.JWT_SECRET_ACCESS_KE as string,
     ) as JwtPayload;
 
     const { email, role } = decoded;
-
     if (requireRole && !requireRole.includes(role)) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,

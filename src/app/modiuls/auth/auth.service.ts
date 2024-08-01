@@ -38,6 +38,15 @@ const loginUserFromDb = async (payloads: Record<string, unknown>) => {
     throw new AppError(httpStatus.BAD_REQUEST, "This User is deleted");
   }
 
+//   const users={
+//     _id:user._id,
+// name: user.name,
+// email: user.email,
+// phone: user.phone,
+// role: user.role,
+// address: user.address,
+//   }
+
   const hashPassword = user.password;
   const playinTextPassword = payloads?.password as string;
 
@@ -68,6 +77,9 @@ const loginUserFromDb = async (payloads: Record<string, unknown>) => {
 
   const accessTokenBearer = `Bearer ${accessToken}`;
 
+  if(user){
+    user.password=''
+  }
   return {
     accessTokenBearer,
     refressencToken,

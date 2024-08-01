@@ -12,7 +12,6 @@ const createBookServiceFromDB = async (
   payloads: TBookService,
   token: string,
 ) => {
-  token = token.slice(7);
   const decoded = jwt.verify(
     token,
     config.JWT_SECRET_ACCESS_KE as string,
@@ -48,7 +47,6 @@ const getAllBookServiceFromDB = async () => {
 };
 
 const getMyAllBookServiceFromDB = async (token: string) => {
-  token = token.slice(7);
   const decoded = jwt.verify(
     token,
     config.JWT_SECRET_ACCESS_KE as string,

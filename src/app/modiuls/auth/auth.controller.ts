@@ -24,10 +24,10 @@ const loginUser = catchAcync(async (req, res) => {
   });
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: "User logged in successfully",
-    token: accessTokenBearer,
+    token: accessTokenBearer.slice(7),
     data: resualt.user,
   });
 });
