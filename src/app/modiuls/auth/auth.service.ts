@@ -75,13 +75,12 @@ const loginUserFromDb = async (payloads: Record<string, unknown>) => {
     config.JWT_SECRET_REFRESSRS_TIME as string,
   );
 
-  const accessTokenBearer = `Bearer ${accessToken}`;
 
   if(user){
     user.password=''
   }
   return {
-    accessTokenBearer,
+    accessToken,
     refressencToken,
     user,
   };

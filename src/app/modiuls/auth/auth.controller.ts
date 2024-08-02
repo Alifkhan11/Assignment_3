@@ -16,7 +16,7 @@ const signuptUser = catchAcync(async (req, res) => {
 });
 const loginUser = catchAcync(async (req, res) => {
   const resualt = await UserService.loginUserFromDb(req.body);
-  const { accessTokenBearer, refressencToken } = resualt;
+  const { accessToken, refressencToken } = resualt;
 
   res.cookie("RefereachToken", refressencToken, {
     secure: config.NODE_ENV === "production",
@@ -27,7 +27,7 @@ const loginUser = catchAcync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: "User logged in successfully",
-    token: accessTokenBearer.slice(7),
+    token: accessToken,
     data: resualt.user,
   });
 });
