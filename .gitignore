@@ -1,3 +1,10 @@
 node_modules
 dist
 .vercel
+
+# Environment variables
+.env*.local
+config.bat
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
